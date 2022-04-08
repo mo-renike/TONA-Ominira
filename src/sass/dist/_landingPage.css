@@ -1,0 +1,13 @@
+.Main {
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+}
+.Main .logo {
+  width: 9rem;
+  text-align: center;
+}
+.Main .links {
+  background-color: red;
+  display: flex;
+}

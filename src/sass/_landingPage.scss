@@ -1,0 +1,79 @@
+.Main {
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    @include respond(tablet) {
+        width: 100%;
+        padding: 2.5rem;
+    }
+
+    &__logo {
+        width: 12rem;
+        margin: 2rem auto;
+        transition: $transition;
+
+        @include respond(tablet) {
+            width: 9rem;
+        }
+        @include respond(phone) {
+            width: 7rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+            transform: rotate(180deg);
+        }
+    }
+
+    &__links {
+        display: flex;
+        justify-content: space-between;
+        @include respond(phone) {
+            flex-direction: column;
+        }
+     
+
+        >* {
+            background-color: $white;
+            border-radius: 10px;
+            padding: .3rem;
+            color: $green;
+            width: 30%;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            border: 1px solid $white;
+            transition: $transition;
+            @include respond(phone) {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            &:hover {
+                background-color: transparent;
+                border-color: $white;
+                color: $white;
+            }
+        }
+    }
+
+    &__social_icons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+
+        >* {
+            margin: .7rem;
+            text-decoration: none;
+            transition: $transition;
+            font-size: 1.4rem;
+            color: $white;
+
+            &:hover {
+                transform: scale(1.3);
+                color: $green;
+            }
+        }
+    }
+}
