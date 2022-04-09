@@ -2,12 +2,12 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faMedium } from '@fortawesome/free-brands-svg-icons'
 import { FaEnvelope } from "@react-icons/all-files/fa/FaEnvelope";
-
+import logo from '../../src/logo2.png'
 
 const Main = () => {
   return (
     <div className='Main'>
-      <img className='Main__logo' src='logo.png' alt="Spice DAO logo" />
+      <img className='Main__logo' src={logo} alt="Spice DAO logo" />
       <div className="Main__links">
         <a href="https://forum.spicedao.xyz/">Forum</a>
         <a href="https://snapshot.org/#/dunedao.eth">Governance</a>
