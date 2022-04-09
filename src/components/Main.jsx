@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faMedium } from '@fortawesome/free-brands-svg-icons'
 import { FaEnvelope } from "@react-icons/all-files/fa/FaEnvelope";
 import logo from '../../src/logo2.png'
 
 const Main = () => {
+ 
+  const [msg, setMsg] = useState('Shop Merch');
+
   return (
     <div className='Main'>
       <img className='Main__logo' src={logo} alt="Spice DAO logo" />
       <div className="Main__links">
         <a href="https://forum.spicedao.xyz/">Forum</a>
         <a href="https://snapshot.org/#/dunedao.eth">Governance</a>
-        <a href="https://">Shop Merch</a>
+        <button onClick={() => setMsg('Coming Soon')} >{msg}</button>
       </div>
       <p> <b>Spice DAO </b> is a Web3 production studio publishing sci-fi animation and NFTs from established writers and artists.
       </p>
