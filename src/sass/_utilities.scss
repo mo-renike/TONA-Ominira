@@ -7,6 +7,11 @@ $black : #000;
 $green : rgba(34, 129, 131, 1);
 $transition : all .3s ease-in-out;
 
+a, button{
+  text-decoration: none;
+  background: none;
+  text-align: center;
+}
 
 * {
   margin: 0;
@@ -32,7 +37,6 @@ body {
 
   @media (max-height: 600px) {
     height: auto;
-
   }
 
   @include respond(phone) {

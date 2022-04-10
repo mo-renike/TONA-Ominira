@@ -15,7 +15,7 @@ const Main = () => {
       <div className="Main__links">
         <a href="https://forum.spicedao.xyz/">Forum</a>
         <a href="https://snapshot.org/#/dunedao.eth">Governance</a>
-        <button onClick={() => setMsg('Coming Soon')} >{msg}</button>
+        <a href='#0' onClick={() => setMsg('Coming Soon')} >{msg}</a>
       </div>
       <p> <b>Spice DAO </b> is a Web3 production studio publishing sci-fi animation and NFTs from established writers and artists.
       </p>

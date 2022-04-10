@@ -15,6 +15,12 @@ ORDER: Base + typography > general layout + grid > page layout > components
 1em = 16px
 */
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500;600;700&display=swap");
+a, button {
+  text-decoration: none;
+  background: none;
+  text-align: center;
+}
+
 * {
   margin: 0;
   border: none;
@@ -58,7 +64,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 112.5em) {
+@media only screen and (min-height: 1900px) {
   .App {
     height: 100%;
   }
@@ -108,12 +114,6 @@ p {
   .Main__logo {
     width: 7rem;
   }
-}
-
-.Main__logo:hover {
-  cursor: pointer;
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
 }
 
 .Main__links {
