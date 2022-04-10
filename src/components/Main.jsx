@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTwitter, faDiscord, faMedium } from '@fortawesome/free-brands-svg-icons'
 import { FaEnvelope } from "@react-icons/all-files/fa/FaEnvelope";
 import logo from '../../src/logo2.png'
+import Shop from './Shop';
 
 const Main = () => {
  
@@ -30,6 +31,7 @@ const Main = () => {
       <a href="https://medium.com/@spicedao">{ <FontAwesomeIcon icon={ faMedium } /> }</a>
       <a href="mailto:team@spicedao.xyz">< FaEnvelope/></a>
     </div>
+    <Shop />
     </div>
   
   )
