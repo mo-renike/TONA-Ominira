@@ -1,0 +1,41 @@
+@import "../../Styling/Config.scss";
+
+.heading {
+  font-size: 3rem;
+
+  @include respond(phone) {
+    font-size: 2rem;
+  }
+}
+
+.subHeading {
+  font-size: 2rem;
+
+  @include respond(phone) {
+    font-size: 1.2rem;
+  }
+}
+
+.smallSubHeading {
+  font-size: 1.2rem;
+  color: red;
+  @include respond(phone) {
+    font-size: 1rem;
+  }
+}
+.text {
+  font-size: 1rem;
+
+  @include respond(small) {
+    font-size: 1.1rem;
+  }
+}
+
+.heading,
+.subHeading,
+.smallSubHeading {
+  font-family: var(--font-family);
+  font-weight: bold;
+  color: var(--dark-color);
+  margin: 0.4rem 0;
+}

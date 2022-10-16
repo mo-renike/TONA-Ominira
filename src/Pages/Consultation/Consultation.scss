@@ -1,0 +1,50 @@
+@import "../../Styling/Config.scss";
+
+.consultation {
+  background-image: url("../../Assets/bg.JPG");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    max-width: 1440px;
+    width: 60%;
+    background-color: rgba($color: #ffffff, $alpha: 0.7);
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius-box);
+    padding: 1rem;
+    position: relative;
+    overflow: auto;
+    height: 100%;
+    max-height: fit-content;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    @include respond(tabport) {
+      width: 90%;
+    }
+
+    &-btns {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      > * {
+        background-color: var(--dark-olive);
+        color: var(--light-color);
+        padding: 0.5rem;
+      }
+    }
+    .d-f {
+      display: grid;
+      grid-template-columns: 20% 78%;
+      grid-gap: 2%;
+    }
+  }
+}

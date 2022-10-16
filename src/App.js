@@ -1,11 +1,12 @@
-import "./css/main.min.css";
-
-import Main from "./components/Main";
+import "./Styling/Config.scss";
+import Consultation from "./Pages/Consultation/Consultation";
 
 function App() {
   return (
     <div className="App">
-      <Main />
+      <div className="container">
+        <Consultation />
+      </div>
     </div>
   );
 }
