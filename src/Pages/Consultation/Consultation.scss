@@ -23,17 +23,19 @@
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius-box);
     padding: 2rem;
-    height: 100vh;
-    overflow-y: scroll;
+    // height: 100vh;
     &::-webkit-scrollbar {
       display: none;
     }
     &__step {
-      height: auto !important;
+      height: fit-content !important;
     }
 
     @include respond(tabland) {
       width: 95%;
+      height: auto;
+      position: absolute;
+      top: 6rem;
     }
     @include respond(phone) {
       padding: 1rem;

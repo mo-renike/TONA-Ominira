@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 import { Dropdown, Input } from "../../Components/Forms/Inputs";
 import {
@@ -30,7 +31,7 @@ const Home = () => {
 
   // set active class on the current step:
   const [active, setActive] = useState(1);
-
+  const navigate = useNavigate();
 
   const form = useRef();
   const sendEmail = (e) => {
@@ -44,6 +45,8 @@ const Home = () => {
           setTimeout(() => {
             setToast()
           }, 3000);
+          // navigate to the payment page
+          navigate("/payment");
         } else {
           setToast(true);
           setToastMessage("There was an error sending your message, please try again");
@@ -75,6 +78,9 @@ const Home = () => {
       if (!details.initials) {
         setToast(true);
         setToastMessage("Please enter your initials");
+        setTimeout(() => {
+          setToast()
+        }, 3000);
         return;
       }
     }
@@ -82,6 +88,9 @@ const Home = () => {
       if (details.day === "") {
         setToast(true);
         setToastMessage("Please tell me how your day is going 😥");
+        setTimeout(() => {
+          setToast()
+        }, 3000);
         return;
       }
     }
@@ -254,20 +263,21 @@ const Home = () => {
           <form ref={form} onSubmit={sendEmail} className="consultation__container__form">
             <SubHeading title="Let's get started" />
             <div>
-              <Input required="required" name="name" type="name" placeholder="Full Name" />
+              <Input required="required" name="user_name" type="name" placeholder="Full Name" />
             </div>
             <div className="d-f">
-              <Input required="required" type="email" placeholder="Email" />
+              <Input required="required" name="user_email" type="email" placeholder="Email" />
               <Input
                 required="required"
                 type="tel"
+                name="user_phone"
                 placeholder="+2348012345678"
               />
             </div>
-            <Input required="required" type="text" placeholder="Address" />
+            <Input required="required" name="user_address" type="text" placeholder="Address" />
             <div className="d-f">
-              <Input type="text" placeholder="Instagram Handle" />
-              <Dropdown required="required" onChange={handleHear}>
+              <Input type="text" name="user_handle" placeholder="Instagram Handle" />
+              <Dropdown required="required" name="ref" onChange={handleHear}>
                 <option value="0">How did you hear about TONA?</option>
                 <option value="instagram">Instagram</option>
                 <option value="facebook">Facebook</option>
@@ -277,7 +287,7 @@ const Home = () => {
                 <option value="other">Other</option>
               </Dropdown>
             </div>
-            <Dropdown required="required" onChange={handleOutfitType}>
+            <Dropdown required="required" name="outfit_type" onChange={handleOutfitType}>
               <option value="0">
                 What type of outfit are you looking to create?
               </option>
@@ -292,7 +302,7 @@ const Home = () => {
               <option value="occassion">Occasion/Aso-ebi Outfit</option>
               <option value="other">Other</option>
             </Dropdown>
-            <Dropdown required="required" onChange={handleFabricHave}>
+            <Dropdown required="required" name="fabric_have" onChange={handleFabricHave}>
               <option value="0">Do you have your fabric?</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
@@ -300,18 +310,19 @@ const Home = () => {
             {details.fabricHave === "yes" ? (
               <div className="align-left">
                 <SmallSubHeading title="Please upload a clear piture of your fabric" />
-                <Input required="required" type="file" multiple />
+                <Input required="required" type="file" />
               </div>
             ) : details.fabricHave === "no" ? (
               <Input
                 required="required"
                 type="text"
-                placeholder="What is your budget for fabric per yard?"
+                name="fabric_budget"
+                placeholder="What is your budget for fabric per yard? in Naira"
               />
             ) : (
               ""
             )}
-            <Dropdown required="required" onChange={handleStyleHave}>
+            <Dropdown required="required" name="style_have" onChange={handleStyleHave}>
               <option value="0">
                 Do you have styles/ideas for your outfit?
               </option>
@@ -326,26 +337,28 @@ const Home = () => {
                 <SmallSubHeading title="Please add precise description and instructions to each image" />
                 <div className="images">
                   <div className="images__upload">
-                    <Input required="required" type="file" multiple />
+                    <Input required="required" name="img1" type="file" />
                     <Input
                       type="text-area"
                       required="required"
+                      name="img1_desc"
                       placeholder="E.g I like the neckline"
                     />
                   </div>
                   <div className="images__upload">
-                    <Input required="required" type="file" multiple />
+                    <Input name="img2" type="file" />
                     <Input
                       type="text-area"
-                      required="required"
+                      name="img2_desc"
                       placeholder="E.g I like the skirt"
                     />
                   </div>
                   <div className="images__upload">
-                    <Input required="required" type="file" multiple />
+                    <Input type="file" name="img3" />
                     <Input
                       type="text-area"
                       required="required"
+                      name="img3_desc"
                       placeholder="E.g I like the bodice"
                     />
                   </div>
@@ -354,6 +367,7 @@ const Home = () => {
                 <Input
                   type="text-area"
                   required="required"
+                  name="style_desc"
                   placeholder="Please state your fabric type, color choices, dress length and other important considerations."
                 />
               </div>
@@ -366,6 +380,7 @@ const Home = () => {
                     <SmallSubHeading title="Neckline:" />{" "}
                     <Input
                       type="text"
+                      name="neckline"
                       required="required"
                       placeholder="E.g I like V-neckline"
                     />
@@ -375,6 +390,7 @@ const Home = () => {
                     <Input
                       type="text"
                       required="required"
+                      name="bustier"
                       placeholder="E.g I want a corset bustier"
                     />
                   </div>
@@ -383,6 +399,7 @@ const Home = () => {
                     <Input
                       type="text"
                       required="required"
+                      name="sleeves"
                       placeholder="E.g I want long sleeves"
                     />
                   </div>
@@ -391,6 +408,7 @@ const Home = () => {
                     <Input
                       type="text"
                       required="required"
+                      name="silhouette"
                       placeholder="E.g I want a mermaid dress"
                     />
                   </div>
@@ -399,6 +417,7 @@ const Home = () => {
                     <Input
                       type="text"
                       required="required"
+                      name="fabric_options"
                       placeholder="E.g I want luxury beaded lace"
                     />
                   </div>
@@ -407,6 +426,7 @@ const Home = () => {
                     <Input
                       type="text"
                       required="required"
+                      name="embellishments"
                       placeholder="E.g I want the bodice fully embellished"
                     />
                   </div>
@@ -415,6 +435,7 @@ const Home = () => {
                     <Input
                       type="text"
                       required="required"
+                      name="others"
                       placeholder="Additional information/instruction to guide in creating design options that best suit you"
                     />
                   </div>
@@ -422,19 +443,20 @@ const Home = () => {
                 <Input
                   type="text-area"
                   required="required"
+                  name="outfit_budget"
                   placeholder="Budget (Exclusive of fabric cost)"
                 />
                 <SmallSubHeading title="Two design options will be created for you based on the information given." /> <br />
                 <SmallSubHeading title="Payment of N25,000/$56 will be required before these designs options are created and before consultations are scheduled." />{" "}
-                <br />    <a className="border-btn" href="http://pay">Pay Now</a>
+                <br />    <a className="border-btn" href="https://paystack.com/pay/tonadesign">Pay Now or Select Yes above</a>
               </div>
             ) : (
               ""
             )}
             <p className="align-left">Date Of Event</p>
-            <Input type="date" required="required" />
-            <Input type="text" required="required" placeholder="Questions or Enquiries. Type NONE if none" />
-            <Input type="text" placeholder="Please take a moment to leave a comment on your experience so far." />
+            <Input type="date" name="event_date" required="required" />
+            <Input type="text" name="enq" required="required" placeholder="Questions or Enquiries. Type NONE if none" />
+            <Input type="text" name="exp" placeholder="Please take a moment to leave a comment on your experience so far." />
             <button className="submit p-1" type="submit">Submit Form</button>
           </form>
         )}
