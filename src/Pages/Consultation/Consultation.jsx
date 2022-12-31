@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, InputText } from "../../Components/Forms/Inputs";
+import { Dropdown, Input } from "../../Components/Forms/Inputs";
 import {
   SmallSubHeading,
   SubHeading,
@@ -16,22 +16,58 @@ const Home = () => {
     fullname: "",
     address: "",
     day: "",
+    hear: "",
+    styleHave: "",
+    outfitType: "",
+    fabricHave: "",
   });
 
   // set active class on the current step:
   const [active, setActive] = useState(1);
 
-  // save data to local storage
+  // save data to local storage on every change:
+  // const handleChange = (e) => {
+  //   setDetails({ ...details, [e.target.name]: e.target.value });
+  //   localStorage.setItem("details", JSON.stringify(details));
+  //   console.log(details);
+  // };
 
   // remove prev button and next button aty both ends
-  //validate on next button
-  const handleNext = () => {
+  // retrive data from local storage
+
+  const handleNext = (e) => {
+    // validate data
+    if (active === 1) {
+
+      if (details.firstname === "") {
+        alert("Please enter your first name");
+        return;
+      }
+      if (details.initials === "") {
+        alert("Please enter your initials");
+        return;
+      }
+    }
+    if (active === 2) {
+      if (details.day === "") {
+        alert("Please tell me how you're doing (-_-)");
+        return;
+      }
+    }
+
     setActive(active + 1);
+    setDetails({ ...details, [e.target.name]: e.target.value });
+    localStorage.setItem("details", JSON.stringify(details));
+    // console.log(details);
   };
 
-  const handlePrev = () => {
+  const handlePrev = (e) => {
+
+    setDetails({ ...details, [e.target.name]: e.target.value });
+    localStorage.setItem("details", JSON.stringify(details));
     setActive(active - 1);
   };
+
   const handlefirstname = (e) => {
     setDetails({
       ...details,
@@ -52,6 +88,30 @@ const Home = () => {
     });
   };
 
+  const handleHear = (e) => {
+    setDetails({
+      ...details,
+      hear: e.target.value,
+    });
+  };
+  const handleOutfitType = (e) => {
+    setDetails({
+      ...details,
+      outfitType: e.target.value,
+    });
+  };
+  const handleFabricHave = (e) => {
+    setDetails({
+      ...details,
+      fabricHave: e.target.value,
+    });
+  };
+  const handleStyleHave = (e) => {
+    setDetails({
+      ...details,
+      styleHave: e.target.value,
+    });
+  };
   return (
     <div className="consultation">
       <div className="consultation__container">
@@ -60,12 +120,13 @@ const Home = () => {
             <SubHeading title="Heyyy hot stuff, what's your name and preferred title?" />
             <div className="d-f">
               <Dropdown onChange={handleInitials}>
+                <option value="0">Initials</option>
                 <option value="Mrs">Mrs</option>
                 <option value="Miss">Ms</option>
                 <option valie="Auntie">Auntie</option>
-                <option value="Sweet-babe">Sweet Babe</option>
+                <option value="Sweet Babe">Sweet Babe</option>
               </Dropdown>
-              <InputText
+              <Input
                 required="required"
                 type="name"
                 placeholder="First name is fine"
@@ -82,6 +143,7 @@ const Home = () => {
               <br /> How is your day going?
             </span>
             <Dropdown onChange={handleDay}>
+              <option value="0">Pick an Option</option>
               <option value="Terrific">Terrific</option>
               <option value="Basic">Basic</option>
               <option value="shege">Currently seeing shege</option>
@@ -90,61 +152,256 @@ const Home = () => {
         )}
         {active === 3 && (
           <div className="consultation__container__step">
-            <SubHeading title="Here'something to make your day better" />
+            <SubHeading title="Here's something to make your day better" />
             <img src="../../Assets/white_wedding.JPG" alt="" />
           </div>
         )}
         {active === 4 && (
           <div className="consultation__container__step">
-            <SmallSubHeading title="Here are some important things to know before you get started on your consultation process." /> <br /> <br />
+            <SmallSubHeading title="Here are some important things to know before you get started on your consultation process." />{" "}
+            <br /> <br />
             <SmallSubHeading title="Production Time:" />
-            <Text title="- Production Lead Time for occasion dresses is a minimum of 10 business days." />
-            <Text title="- Production Lead Time for bridal dresses is at least 1 month." />
-            <b>     <Text title="Production time is subject to the details on and the design of your garment." /></b>
+            <Text title="- Production Lead Time for occasion outfits is a minimum of 10 business days." />
+            <Text title="- Production Lead Time for bridal outfits is at least 1 month." />
+            <b>
+              {" "}
+              <Text title="Production time is subject to the details on and the design of your outfit." />
+            </b>
             <Text title="Any orders that need to be delivered in lesser time are considered express orders and so come at additional cost." />
-            <b> <Text title="Brides are advised to book their dresses at least 3 months to their wedding date." /> </b><br />
+            <b>
+              {" "}
+              <Text title="Brides are advised to book their outfits at least 3 months to their wedding date." />{" "}
+            </b>
+            <br />
             <SmallSubHeading title="Fabric:" />
-            <Text
-              title="I accept ONLY lace fabrics for aso-ebi and other occasion dresses. I DO NOT accept fabrics for plain custom dresses and wedding dresses."
-            /> <br />
+            <Text title="I accept ONLY lace fabrics for aso-ebi and other occasion outfits. I DO NOT accept fabrics for plain custom outfits and wedding outfits." />{" "}
+            <br />
             <SmallSubHeading title="Pricing Guide:" />
-            <Text title="- Starting price for wedding reception dresses, occasion dresses and aso-ebi dresses is N30,000/$67 (Exclusive of fabrics and any embellishments)." />
-            <Text title="- Starting price for civil wedding look is N40,000/$89 (Exclusive of any embellishments). (Exclusive of  any embellishments)." />
-            <Text title="- Starting price for traditional wedding look is N50,000/$111 (Exclusive of fabrics and any embellishments)." />
-            <Text title="- Starting price for custom wedding dress is N100,000/$223 (Exclusive of any embellishments)." /> <br />
+            <Text title="- Starting price for wedding reception outfits, occasion outfits and aso-ebi outfits is N30,000/$67 (Exclusive of fabrics and any embellishments)." />
+            <Text title="- Starting price for civil wedding outfits is N40,000/$89 (Exclusive of any embellishments)." />
+            <Text title="- Starting price for traditional wedding outfits is N50,000/$111 (Exclusive of fabrics and any embellishments)." />
+            <Text title="- Starting price for custom wedding dress is N100,000/$223 (Exclusive of any embellishments)." />{" "}
+            <br />
             <SmallSubHeading title="Consultations:" />
-            <Text title="You'll be required to make a non-refundable consultation appointment deposit of N20,000/$45 for a wedding dress and N10,000/$23 for all other garments." />
+            <Text title="You'll be required to make a non-refundable consultation appointment deposit of N20,000/$45 for a wedding  outfit and N10,000/$23 for all other outfits." />
             <b>
               <i>
-                <Text title="Please note that this fee is deductible from your final bill. Kindly note that the final price of your garment depends on the details and design of your garment." />
+                <Text title="Please note that this fee is deductible from your final bill. Kindly note that the final price of your outfit depends on the details and design of your outfit." />
               </i>
-            </b> <br />
+            </b>{" "}
+            <br />
             <SmallSubHeading title="Consultation Policy:" />
             <Text title="- Consultations may be virtual or physical." />
             <Text title="- Consultations are held at my studio in Lagos, Nigeria." />
             <Text title="- Consultations are held at a time that is convenient for both parties." />
             <Text title="- Consultations are held to ensure that all important details are gotten from you and to help guide you towards choosing a design and color suited just for you." />
-            <Text title="- In the case where you don't have style/ideas for your garment and a custom design has to be created, consultation helps me come up with a design that reflects your style, preferences, and desires. You will have 2 design choices to pick from." />
+            <Text title="- In the case where you don't have style/ideas for your outfit and a custom design has to be created, consultation helps me come up with a design that reflects your style, preferences, and desires. You will have 2 design choices to pick from." />
             <b>
               <i>
-                <Text title="This comes at an additional cost which is not deductible from your final bill" />
+                <Text title="This comes at an additional cost which is not deductible from your final bill." />
               </i>
             </b>
-            <Text title="- Consultations are typically between myself and clients. Please do not come with more 1 person as company for physical consultations." />
+            <Text title="- Consultations are typically between myself and clients. Please do not come with more than 1 person as company for physical consultations." />
             <br />
             <SmallSubHeading title="Time management:" />
-            <Text title="Kindly note that time management is very crucial and as such, please make sure to come in time for your appointment. If you arrive later that 15mins into scheduled time, your consultation is not guaranteed to hold the same day." /> <br />
+            <Text title="Kindly note that time management is very crucial and as such, please make sure to come in time for your appointment. If you arrive later that 15 minutes into scheduled time, your consultation is not guaranteed to hold the same day." />{" "}
+            <br />
             <SmallSubHeading title="Rescheduling:" />
-            <Text title="Should you wish to reschedule your appointment to a later date, please send a notice at least 24hours to scheduled date and time of consultation." /> <br />
-            <SmallSubHeading title="Thank You for choosing Tona. I look forward to a long, beautiful and prosperous relationship with you." /> <br /><br />
+            <Text title="Should you wish to reschedule your appointment to a later date, please send a notice at least 24hours to scheduled date and time of consultation." />{" "}
+            <br />
+            <SmallSubHeading title="Thank You for choosing Tona. I look forward to a long, beautiful and prosperous relationship with you." />{" "}
+            <br />
+            <br />
             <SmallSubHeading title="If you wish to continue with your consultation process, please fill out the form in the next page. You will be contacted within 24-48hours to continue the process." />
           </div>
         )}
-
         {/* consultation form here  */}
+        {active === 5 && (
+          <div className="consultation__container__form">
+            <SubHeading title="Let's get started" />
+            <div>
+              <Input required="required" type="name" placeholder="Full Name" />
+            </div>
+            <div className="d-f">
+              <Input required="required" type="email" placeholder="Email" />
+              <Input
+                required="required"
+                type="tel"
+                placeholder="+2348012345678"
+              />
+            </div>
+            <Input required="required" type="text" placeholder="Address" />
+            <div className="d-f">
+              <Input type="text" placeholder="Instagram Handle" />
+              <Dropdown required="required" onChange={handleHear}>
+                <option value="0">How did you hear about TONA?</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="search">Online Search</option>
+                <option value="twitter">Twitter</option>
+                <option value="referral">Referral</option>
+                <option value="other">Other</option>
+              </Dropdown>
+            </div>
+            <Dropdown required="required" onChange={handleOutfitType}>
+              <option value="0">
+                What type of outfit are you looking to create?
+              </option>
+              <option value="white-wedding">White Wedding Dress</option>
+              <option value="traditional-wedding">
+                Traditional Wedding Outfit
+              </option>
+              <option value="reception-wedding">
+                Wedding Reception Outfit
+              </option>
+              <option value="civil-wedding">Civil Wedding Outfit</option>
+              <option value="occassion">Occasion/Aso-ebi Outfit</option>
+              <option value="other">Other</option>
+            </Dropdown>
+            <Dropdown required="required" onChange={handleFabricHave}>
+              <option value="0">Do you have your fabric?</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </Dropdown>{" "}
+            {details.fabricHave === "yes" ? (
+              <div className="align-left">
+                <SmallSubHeading title="Please upload a clear piture of your fabric" />
+                <Input required="required" type="file" multiple />
+              </div>
+            ) : details.fabricHave === "no" ? (
+              <Input
+                required="required"
+                type="text"
+                placeholder="What is your budget for fabric per yard?"
+              />
+            ) : (
+              ""
+            )}
+            <Dropdown onChange={handleStyleHave}>
+              <option value="0">
+                Do you have styles/ideas for your outfit?
+              </option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </Dropdown>
+            {details.styleHave === "yes" ? (
+              <div className="align-left">
+                {" "}
+                <SmallSubHeading title="Kindly upload clear image(s) of your style/ideas below." />{" "}
+                <br />
+                <SmallSubHeading title="Please add precise description and instructions to each image" />
+                <div className="images">
+                  <div className="images__upload">
+                    <Input required="required" type="file" multiple />
+                    <Input
+                      type="text-area"
+                      required="required"
+                      placeholder="E.g I like the neckline"
+                    />
+                  </div>
+                  <div className="images__upload">
+                    <Input required="required" type="file" multiple />
+                    <Input
+                      type="text-area"
+                      required="required"
+                      placeholder="E.g I like the skirt"
+                    />
+                  </div>
+                  <div className="images__upload">
+                    <Input required="required" type="file" multiple />
+                    <Input
+                      type="text-area"
+                      required="required"
+                      placeholder="E.g I like the bodice"
+                    />
+                  </div>
+                </div>
+                <br />
+                <Input
+                  type="text-area"
+                  required="required"
+                  placeholder="Please state your fabric type, color choices, dress length and other important considerations."
+                />
+              </div>
+            ) : details.styleHave === "no" ? (
+              <div className="align-left">
+                <SmallSubHeading title="Kindly state your style preferences, dos and don'ts, considerations and instructions for the following features" />{" "}
+                <br />
+                <div className="preferences">
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Neckline:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="E.g I like V-neckline"
+                    />
+                  </div>
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Bustier:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="E.g I want a corset bustier"
+                    />
+                  </div>
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Sleeves:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="E.g I want long sleeves"
+                    />
+                  </div>
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Dress silhouette:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="E.g I want a mermaid dress"
+                    />
+                  </div>
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Fabric options:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="E.g I want luxury beaded lace"
+                    />
+                  </div>
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Embellishments:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="E.g I want the bodice fully embellished"
+                    />
+                  </div>
+                  <div className="preferences__item">
+                    <SmallSubHeading title="Others:" />{" "}
+                    <Input
+                      type="text"
+                      required="required"
+                      placeholder="Additional information/instruction to guide in creating design options that best suit you"
+                    />
+                  </div>
+                </div>
+                <Input
+                  type="text-area"
+                  required="required"
+                  placeholder="Budget (Exclusive of fabric cost)"
+                />
+                <SmallSubHeading title="Two design options will be created for you based on the information given." /> <br />
+                <SmallSubHeading title="Payment of N25,000/$56 will be required before these designs options are created and before consultations are scheduled." />{" "}
+                <br />    <a className="border-btn" href="http://pay">Pay Now</a>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        )}
 
         <div className="consultation__container-btns">
-          <button onClick={handlePrev}>Prev</button>
+          <button disabled={active === 1} onClick={handlePrev}>Prev</button>
           <button onClick={handleNext}>Next</button>
         </div>
       </div>
@@ -152,4 +409,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home;  
