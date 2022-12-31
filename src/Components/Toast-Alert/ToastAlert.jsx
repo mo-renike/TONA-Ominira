@@ -1,9 +1,9 @@
 import React from 'react';
 import './ToastAlert.scss'
 
-const ToastAlert = ({ title }) => {
+const ToastAlert = ({ message }) => {
     return (
-        <div className='toast'>{title}</div>
+        <div className='toast'>{message}</div>
     )
 }
 

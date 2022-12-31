@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import emailjs from '@emailjs/browser';
 import { Dropdown, Input } from "../../Components/Forms/Inputs";
 import {
   SmallSubHeading,
@@ -7,8 +8,13 @@ import {
 } from "../../Components/Typography/Typography";
 import "./Consultation.scss";
 import "../../Styling/Config.scss";
+import ToastAlert from "../../Components/Toast-Alert/ToastAlert";
 
 const Home = () => {
+
+  const [toast, setToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
   const [details, setDetails] = useState({
     firstname: "",
     initials: "",
@@ -25,32 +31,57 @@ const Home = () => {
   // set active class on the current step:
   const [active, setActive] = useState(1);
 
-  // save data to local storage on every change:
-  // const handleChange = (e) => {
-  //   setDetails({ ...details, [e.target.name]: e.target.value });
-  //   localStorage.setItem("details", JSON.stringify(details));
-  //   console.log(details);
-  // };
 
-  // remove prev button and next button aty both ends
-  // retrive data from local storage
+  const form = useRef();
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_wwzbenj', 'template_9aplkq8', form.current, '0P4eaz4oj8jr9VUqY')
+      .then((result) => {
+        if (result.text === "OK") {
+          setToast(true);
+          setToastMessage("Your message has been sent successfully");
+          setTimeout(() => {
+            setToast()
+          }, 3000);
+        } else {
+          setToast(true);
+          setToastMessage("There was an error sending your message, please try again");
+          setTimeout(() => {
+            setToast()
+          }, 3000);
+        }
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
+  };
+
 
   const handleNext = (e) => {
+
     // validate data
     if (active === 1) {
-
       if (details.firstname === "") {
-        alert("Please enter your first name");
+        setToast(true);
+        setToastMessage("Please enter your name");
+        setTimeout(() => {
+          setToast()
+        }, 3000);
         return;
+      } else {
+        setToast(false)
       }
-      if (details.initials === "") {
-        alert("Please enter your initials");
+      if (!details.initials) {
+        setToast(true);
+        setToastMessage("Please enter your initials");
         return;
       }
     }
     if (active === 2) {
       if (details.day === "") {
-        alert("Please tell me how you're doing (-_-)");
+        setToast(true);
+        setToastMessage("Please tell me how your day is going 😥");
         return;
       }
     }
@@ -112,8 +143,12 @@ const Home = () => {
       styleHave: e.target.value,
     });
   };
+  // use toastAlert to display error messages
+  // const toastAlert = (message) => {
+
   return (
     <div className="consultation">
+      {toast && <ToastAlert message={toastMessage} />}
       <div className="consultation__container">
         {active === 1 && (
           <div className="consultation__container__step">
@@ -127,7 +162,6 @@ const Home = () => {
                 <option value="Sweet Babe">Sweet Babe</option>
               </Dropdown>
               <Input
-                required="required"
                 type="name"
                 placeholder="First name is fine"
                 onChange={handlefirstname}
@@ -153,7 +187,7 @@ const Home = () => {
         {active === 3 && (
           <div className="consultation__container__step">
             <SubHeading title="Here's something to make your day better" />
-            <img src="../../Assets/white_wedding.JPG" alt="" />
+            <div className="bunny"><img className="gif" src="https://media.tenor.com/I1yUv9kv_5cAAAAM/love-bunny.gif" alt="bunny" /></div>
           </div>
         )}
         {active === 4 && (
@@ -177,13 +211,13 @@ const Home = () => {
             <Text title="I accept ONLY lace fabrics for aso-ebi and other occasion outfits. I DO NOT accept fabrics for plain custom outfits and wedding outfits." />{" "}
             <br />
             <SmallSubHeading title="Pricing Guide:" />
-            <Text title="- Starting price for wedding reception outfits, occasion outfits and aso-ebi outfits is N30,000/$67 (Exclusive of fabrics and any embellishments)." />
-            <Text title="- Starting price for civil wedding outfits is N40,000/$89 (Exclusive of any embellishments)." />
-            <Text title="- Starting price for traditional wedding outfits is N50,000/$111 (Exclusive of fabrics and any embellishments)." />
+            <Text title="- Starting price for wedding reception outfits, occasion outfits and aso-ebi outfits is N40,000/$89 (Exclusive of fabrics and any embellishments)." />
+            <Text title="- Starting price for civil wedding outfits is N50,000/$111 (Exclusive of any embellishments)." />
+            <Text title="- Starting price for traditional wedding outfits is N60,000/$134 (Exclusive of fabrics and any embellishments)." />
             <Text title="- Starting price for custom wedding dress is N100,000/$223 (Exclusive of any embellishments)." />{" "}
             <br />
             <SmallSubHeading title="Consultations:" />
-            <Text title="You'll be required to make a non-refundable consultation appointment deposit of N20,000/$45 for a wedding  outfit and N10,000/$23 for all other outfits." />
+            <Text title="You'll be required to make a non-refundable consultation appointment deposit of N30,000/$67 for a wedding  outfit and N15,000/$34 for all other outfits." />
             <b>
               <i>
                 <Text title="Please note that this fee is deductible from your final bill. Kindly note that the final price of your outfit depends on the details and design of your outfit." />
@@ -217,10 +251,10 @@ const Home = () => {
         )}
         {/* consultation form here  */}
         {active === 5 && (
-          <div className="consultation__container__form">
+          <form ref={form} onSubmit={sendEmail} className="consultation__container__form">
             <SubHeading title="Let's get started" />
             <div>
-              <Input required="required" type="name" placeholder="Full Name" />
+              <Input required="required" name="name" type="name" placeholder="Full Name" />
             </div>
             <div className="d-f">
               <Input required="required" type="email" placeholder="Email" />
@@ -277,7 +311,7 @@ const Home = () => {
             ) : (
               ""
             )}
-            <Dropdown onChange={handleStyleHave}>
+            <Dropdown required="required" onChange={handleStyleHave}>
               <option value="0">
                 Do you have styles/ideas for your outfit?
               </option>
@@ -397,12 +431,17 @@ const Home = () => {
             ) : (
               ""
             )}
-          </div>
+            <p className="align-left">Date Of Event</p>
+            <Input type="date" required="required" />
+            <Input type="text" required="required" placeholder="Questions or Enquiries. Type NONE if none" />
+            <Input type="text" placeholder="Please take a moment to leave a comment on your experience so far." />
+            <button className="submit p-1" type="submit">Submit Form</button>
+          </form>
         )}
 
         <div className="consultation__container-btns">
           <button disabled={active === 1} onClick={handlePrev}>Prev</button>
-          <button onClick={handleNext}>Next</button>
+          <button disabled={active === 5} id="next" onClick={handleNext}>Next</button>
         </div>
       </div>
     </div>

@@ -1,0 +1,33 @@
+.payment {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  height: 100vh;
+  > * {
+    height: 100vh;
+  }
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    &_btns {
+      display: flex;
+      margin-top: 1rem;
+      > * {
+        width: fit-content;
+        padding: 1rem;
+        background-color: var(--dark-olive);
+        color: var(--light-color);
+        font-weight: bold;
+        margin-right: 1rem;
+        border: 2px solid var(--dark-olive);
+        transition: 0.4s ease-in-out;
+        &:hover {
+          background-color: transparent;
+          border: 2px solid var(--dark-olive);
+          color: var(--dark-olive);
+        }
+      }
+    }
+  }
+}

@@ -12,7 +12,7 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
   position: relative;
-  
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -23,12 +23,17 @@
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius-box);
     padding: 2rem;
+    height: 100vh;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     &__step {
       height: auto !important;
     }
 
-    @include respond(tabport) {
-      width: 90%;
+    @include respond(tabland) {
+      width: 95%;
     }
     @include respond(phone) {
       padding: 1rem;
@@ -46,11 +51,19 @@
         padding: 0.5rem;
         font-size: 1.1rem;
         cursor: pointer;
+        border: 2px solid var(--dark-olive);
         font-weight: bold;
+        transition: 0.4s ease-in-out;
+        &:hover {
+          background-color: transparent;
+          border: 2px solid var(--dark-olive);
+          color: var(--dark-olive);
+        }
         &:disabled {
           cursor: not-allowed;
-          background-color: lightgrey;
-          color: gray;
+          background: rgba(#ffffff, 0.1);
+          color: rgba(#efefef, 0.3);
+          border: none;
         }
       }
     }
@@ -84,7 +97,22 @@
     }
   }
 }
-
+.submit {
+  width: 100%;
+  background-color: var(--dark-olive);
+  color: var(--light-color);
+  padding: 0.77rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.4s ease-in-out;
+  border: 2px solid var(--dark-olive);
+  &:hover {
+    background-color: transparent;
+    border: 2px solid var(--dark-olive);
+    color: var(--dark-olive);
+  }
+}
 .images {
   display: grid;
   margin-top: 1rem;
@@ -108,5 +136,16 @@
     .smallSubHeading {
       flex-wrap: wrap;
     }
+  }
+}
+.bunny {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  img {
+    width: 100%;
+    margin: 2rem 0;
+    height: 100%;
+    object-fit: cover;
   }
 }
