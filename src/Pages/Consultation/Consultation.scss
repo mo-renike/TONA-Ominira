@@ -9,24 +9,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  position: relative;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
   &__container {
     max-width: 1440px;
     width: 60%;
     background-color: rgba($color: #ffffff, $alpha: 0.7);
     box-shadow: var(--box-shadow);
     border-radius: var(--border-radius-box);
-    padding: 1rem;
-    position: relative;
-    overflow: auto;
-    height: 100%;
-    max-height: fit-content;
-    scroll-behavior: smooth;
-    &::-webkit-scrollbar {
-      display: none;
+    padding: 2rem;
+    &__step {
+      height: auto !important;
     }
+
     @include respond(tabport) {
       width: 90%;
+    }
+    @include respond(phone) {
+      padding: 1rem;
     }
 
     &-btns {
@@ -39,12 +44,69 @@
         background-color: var(--dark-olive);
         color: var(--light-color);
         padding: 0.5rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-weight: bold;
+        &:disabled {
+          cursor: not-allowed;
+          background-color: lightgrey;
+          color: gray;
+        }
       }
     }
+
     .d-f {
       display: grid;
       grid-template-columns: 20% 78%;
       grid-gap: 2%;
+    }
+
+    &__form {
+      text-align: center;
+
+      .d-f {
+        display: grid;
+        grid-template-columns: 49% 49%;
+        grid-gap: 2%;
+
+        @include respond(tabport) {
+          grid-template-columns: 100%;
+        }
+      }
+
+      .smallSubHeading {
+        color: var(--dark-olive) !important;
+        font-weight: normal;
+      }
+    }
+    .subHeading {
+      color: var(--dark-olive);
+    }
+  }
+}
+
+.images {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  @include respond(phone) {
+    grid-template-columns: 100%;
+  }
+  // input {
+  //   font-size: 0.9rem;
+  //   margin: 0;
+  // }
+}
+
+.preferences {
+  &__item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 25% 75%;
+
+    .smallSubHeading {
+      flex-wrap: wrap;
     }
   }
 }
