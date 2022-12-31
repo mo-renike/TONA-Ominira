@@ -1,12 +1,11 @@
 import React from "react";
 import { SubHeading } from "../../Components/Typography/Typography";
 import "./Payment.scss";
-import bg from "../../Assets/white_wedding.JPG";
 const Payment = () => {
     return (
         <div className="payment">
             <div className="payment__img">
-                <img src={bg} alt="img" />
+
             </div>
             <div className="payment__text">
                 <SubHeading title="To proceed with your consultation process, click here for payment." />
