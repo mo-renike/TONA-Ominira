@@ -134,9 +134,12 @@
     display: grid;
     align-items: center;
     grid-template-columns: 25% 75%;
-
+    @include respond(sm) {
+      grid-template-columns: 100%;
+    }
     .smallSubHeading {
       flex-wrap: wrap;
+      word-wrap: break-word;
     }
   }
 }

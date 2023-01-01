@@ -4,9 +4,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
-  > * {
-    height: 100vh;
-  }
+
   &__img {
     background-image: url("../../Assets/white_wedding.JPG");
     background-size: cover;
@@ -19,6 +17,9 @@
     flex-direction: column;
     justify-content: center;
     padding: 2rem;
+    .link {
+      color: var(--dark-olive);
+    }
     &_btns {
       display: flex;
       margin-top: 1rem;

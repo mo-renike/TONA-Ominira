@@ -10,6 +10,7 @@ import {
 import "./Consultation.scss";
 import "../../Styling/Config.scss";
 import ToastAlert from "../../Components/Toast-Alert/ToastAlert";
+import bunny from "../../Assets/love-bunny.gif"
 
 const Home = () => {
 
@@ -196,7 +197,7 @@ const Home = () => {
         {active === 3 && (
           <div className="consultation__container__step">
             <SubHeading title="Here's something to make your day better" />
-            <div className="bunny"><img className="gif" src="https://media.tenor.com/I1yUv9kv_5cAAAAM/love-bunny.gif" alt="bunny" /></div>
+            <div className="bunny"><img className="gif" src={bunny} alt="bunny" /></div>
           </div>
         )}
         {active === 4 && (
@@ -421,7 +422,7 @@ const Home = () => {
                       placeholder="E.g I want luxury beaded lace"
                     />
                   </div>
-                  <div className="preferences__item">
+                  <div className="preferences__item col">
                     <SmallSubHeading title="Embellishments:" />{" "}
                     <Input
                       type="text"
@@ -448,7 +449,6 @@ const Home = () => {
                 />
                 <SmallSubHeading title="Two design options will be created for you based on the information given." /> <br />
                 <SmallSubHeading title="Payment of N25,000/$56 will be required before these designs options are created and before consultations are scheduled." />{" "}
-                <br />    <a className="border-btn" href="https://paystack.com/pay/tonadesign">Pay Now or Select Yes above</a>
               </div>
             ) : (
               ""

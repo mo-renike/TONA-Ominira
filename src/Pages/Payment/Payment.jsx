@@ -8,7 +8,7 @@ const Payment = () => {
 
             </div>
             <div className="payment__text">
-                <SubHeading title="To proceed with your consultation process, click here for payment." />
+                <SubHeading title="To complete your consultation process, click here for payment." />
                 <div className="payment__text_btns">
                     <a href="https://paystack.com/pay/tonabridals">Bridals</a> <br />
                     <a href="https://paystack.com/pay/tonaoccasion">Non Bridals</a>
