@@ -48,6 +48,7 @@ const Home = () => {
           }, 3000);
           // navigate to the payment page
           navigate("/payment");
+
         } else {
           setToast(true);
           setToastMessage("There was an error sending your message, please try again");
@@ -58,6 +59,13 @@ const Home = () => {
         console.log(result.text);
       }, (error) => {
         console.log(error.text);
+        if (error.text === "Variables size limit. The maximum allowed variables size is 50Kb") {
+          setToast(true);
+          setToastMessage("Please choose a smaller image");
+          setTimeout(() => {
+            setToast()
+          }, 3000);
+        }
       });
   };
 
@@ -261,7 +269,7 @@ const Home = () => {
         )}
         {/* consultation form here  */}
         {active === 5 && (
-          <form ref={form} onSubmit={sendEmail} className="consultation__container__form">
+          <form enctype="multipart/form-data" ref={form} onSubmit={sendEmail} className="consultation__container__form">
             <SubHeading title="Let's get started" />
             <div>
               <Input required="required" name="user_name" type="name" placeholder="Full Name" />
@@ -311,7 +319,7 @@ const Home = () => {
             {details.fabricHave === "yes" ? (
               <div className="align-left">
                 <SmallSubHeading title="Please upload a clear piture of your fabric" />
-                <Input required="required" type="file" />
+                <Input name="fabric_img" required="required" type="file" />
               </div>
             ) : details.fabricHave === "no" ? (
               <Input

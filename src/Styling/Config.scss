@@ -70,13 +70,13 @@ $spaceamounts: (1, 2, 3, 4, 5, 6, 7);
   }
 
   @if $breakpoint==tabport {
-    @media (max-width: 768px) {
+    @media (max-width: 769px) {
       @content;
     }
   }
 
   @if $breakpoint==phone {
-    @media (max-width: 414px) {
+    @media (max-width: 415px) {
       @content;
     }
   }
