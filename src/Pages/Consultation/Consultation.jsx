@@ -319,7 +319,7 @@ const Home = () => {
             {details.fabricHave === "yes" ? (
               <div className="align-left">
                 <SmallSubHeading title="Please upload a clear piture of your fabric" />
-                <Input name="fabric_img" required="required" type="file" />
+                <Input name="cid:fabric_img" required="required" type="file" />
               </div>
             ) : details.fabricHave === "no" ? (
               <Input
@@ -346,7 +346,7 @@ const Home = () => {
                 <SmallSubHeading title="Please add precise description and instructions to each image" />
                 <div className="images">
                   <div className="images__upload">
-                    <Input required="required" name="img1" type="file" />
+                    <Input required="required" name="cid:img1" type="file" />
                     <Input
                       type="text-area"
                       required="required"
@@ -355,7 +355,7 @@ const Home = () => {
                     />
                   </div>
                   <div className="images__upload">
-                    <Input name="img2" type="file" />
+                    <Input name="cid:img2" type="file" />
                     <Input
                       type="text-area"
                       name="img2_desc"
@@ -363,11 +363,11 @@ const Home = () => {
                     />
                   </div>
                   <div className="images__upload">
-                    <Input type="file" name="img3" />
+                    <Input type="file" name="cid:img3" />
                     <Input
                       type="text-area"
                       required="required"
-                      name="img3_desc"
+                      name="cid:img3_desc"
                       placeholder="E.g I like the bodice"
                     />
                   </div>
@@ -461,7 +461,7 @@ const Home = () => {
             ) : (
               ""
             )}
-            <p className="align-left">Date Of Event</p>
+            <p className="align-left">Pick up date</p>
             <Input type="date" name="event_date" required="required" />
             <Input type="text" name="enq" required="required" placeholder="Questions or Enquiries. Type NONE if none" />
             <Input type="text" name="exp" placeholder="Please take a moment to leave a comment on your experience so far." />
