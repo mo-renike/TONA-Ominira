@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 import { Dropdown, Input } from "../../Components/Forms/Inputs";
 import {
   SmallSubHeading,
@@ -10,10 +10,9 @@ import {
 import "./Consultation.scss";
 import "../../Styling/Config.scss";
 import ToastAlert from "../../Components/Toast-Alert/ToastAlert";
-import bunny from "../../Assets/love-bunny.gif"
+import bunny from "../../Assets/love-bunny.gif";
 
 const Home = () => {
-
   const [toast, setToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
@@ -38,57 +37,68 @@ const Home = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_wwzbenj', 'template_9aplkq8', form.current, '0P4eaz4oj8jr9VUqY')
-      .then((result) => {
-        if (result.text === "OK") {
-          setToast(true);
-          setToastMessage("Your message has been sent successfully");
-          setTimeout(() => {
-            setToast()
-          }, 3000);
-          // navigate to the payment page
-          navigate("/payment");
-
-        } else {
-          setToast(true);
-          setToastMessage("There was an error sending your message, please try again");
-          setTimeout(() => {
-            setToast()
-          }, 3000);
+    emailjs
+      .sendForm(
+        "service_wwzbenj",
+        "template_9aplkq8",
+        form.current,
+        "0P4eaz4oj8jr9VUqY"
+      )
+      .then(
+        (result) => {
+          if (result.text === "OK") {
+            setToast(true);
+            setToastMessage("Your message has been sent successfully");
+            setTimeout(() => {
+              setToast();
+            }, 3000);
+            // navigate to the payment page
+            navigate("/payment");
+          } else {
+            setToast(true);
+            setToastMessage(
+              "There was an error sending your message, please try again"
+            );
+            setTimeout(() => {
+              setToast();
+            }, 3000);
+          }
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+          if (
+            error.text ===
+            "Variables size limit. The maximum allowed variables size is 50Kb"
+          ) {
+            setToast(true);
+            setToastMessage("Please choose a smaller image");
+            setTimeout(() => {
+              setToast();
+            }, 3000);
+          }
         }
-        console.log(result.text);
-      }, (error) => {
-        console.log(error.text);
-        if (error.text === "Variables size limit. The maximum allowed variables size is 50Kb") {
-          setToast(true);
-          setToastMessage("Please choose a smaller image");
-          setTimeout(() => {
-            setToast()
-          }, 3000);
-        }
-      });
+      );
   };
 
-
   const handleNext = (e) => {
-
     // validate data
     if (active === 1) {
       if (details.firstname === "") {
         setToast(true);
         setToastMessage("Please enter your name");
         setTimeout(() => {
-          setToast()
+          setToast();
         }, 3000);
         return;
       } else {
-        setToast(false)
+        setToast(false);
       }
       if (!details.initials) {
         setToast(true);
         setToastMessage("Please enter your initials");
         setTimeout(() => {
-          setToast()
+          setToast();
         }, 3000);
         return;
       }
@@ -98,7 +108,7 @@ const Home = () => {
         setToast(true);
         setToastMessage("Please tell me how your day is going 😥");
         setTimeout(() => {
-          setToast()
+          setToast();
         }, 3000);
         return;
       }
@@ -111,7 +121,6 @@ const Home = () => {
   };
 
   const handlePrev = (e) => {
-
     setDetails({ ...details, [e.target.name]: e.target.value });
     localStorage.setItem("details", JSON.stringify(details));
     setActive(active - 1);
@@ -205,7 +214,9 @@ const Home = () => {
         {active === 3 && (
           <div className="consultation__container__step">
             <SubHeading title="Here's something to make your day better" />
-            <div className="bunny"><img className="gif" src={bunny} alt="bunny" /></div>
+            <div className="bunny">
+              <img className="gif" src={bunny} alt="bunny" />
+            </div>
           </div>
         )}
         {active === 4 && (
@@ -269,13 +280,28 @@ const Home = () => {
         )}
         {/* consultation form here  */}
         {active === 5 && (
-          <form enctype="multipart/form-data" ref={form} onSubmit={sendEmail} className="consultation__container__form">
+          <form
+            enctype="multipart/form-data"
+            ref={form}
+            onSubmit={sendEmail}
+            className="consultation__container__form"
+          >
             <SubHeading title="Let's get started" />
             <div>
-              <Input required="required" name="user_name" type="name" placeholder="Full Name" />
+              <Input
+                required="required"
+                name="user_name"
+                type="name"
+                placeholder="Full Name"
+              />
             </div>
             <div className="d-f">
-              <Input required="required" name="user_email" type="email" placeholder="Email" />
+              <Input
+                required="required"
+                name="user_email"
+                type="email"
+                placeholder="Email"
+              />
               <Input
                 required="required"
                 type="tel"
@@ -283,9 +309,18 @@ const Home = () => {
                 placeholder="+2348012345678"
               />
             </div>
-            <Input required="required" name="user_address" type="text" placeholder="Address" />
+            <Input
+              required="required"
+              name="user_address"
+              type="text"
+              placeholder="Address"
+            />
             <div className="d-f">
-              <Input type="text" name="user_handle" placeholder="Instagram Handle" />
+              <Input
+                type="text"
+                name="user_handle"
+                placeholder="Instagram Handle"
+              />
               <Dropdown required="required" name="ref" onChange={handleHear}>
                 <option value="0">How did you hear about TONA?</option>
                 <option value="instagram">Instagram</option>
@@ -296,7 +331,11 @@ const Home = () => {
                 <option value="other">Other</option>
               </Dropdown>
             </div>
-            <Dropdown required="required" name="outfit_type" onChange={handleOutfitType}>
+            <Dropdown
+              required="required"
+              name="outfit_type"
+              onChange={handleOutfitType}
+            >
               <option value="0">
                 What type of outfit are you looking to create?
               </option>
@@ -311,7 +350,11 @@ const Home = () => {
               <option value="occassion">Occasion/Aso-ebi Outfit</option>
               <option value="other">Other</option>
             </Dropdown>
-            <Dropdown required="required" name="fabric_have" onChange={handleFabricHave}>
+            <Dropdown
+              required="required"
+              name="fabric_have"
+              onChange={handleFabricHave}
+            >
               <option value="0">Do you have your fabric?</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
@@ -331,7 +374,11 @@ const Home = () => {
             ) : (
               ""
             )}
-            <Dropdown required="required" name="style_have" onChange={handleStyleHave}>
+            <Dropdown
+              required="required"
+              name="style_have"
+              onChange={handleStyleHave}
+            >
               <option value="0">
                 Do you have styles/ideas for your outfit?
               </option>
@@ -455,7 +502,8 @@ const Home = () => {
                   name="outfit_budget"
                   placeholder="Budget (Exclusive of fabric cost)"
                 />
-                <SmallSubHeading title="Two design options will be created for you based on the information given." /> <br />
+                <SmallSubHeading title="Two design options will be created for you based on the information given." />{" "}
+                <br />
                 <SmallSubHeading title="Payment of N25,000/$56 will be required before these designs options are created and before consultations are scheduled." />{" "}
               </div>
             ) : (
@@ -463,19 +511,34 @@ const Home = () => {
             )}
             <p className="align-left">Pick up date</p>
             <Input type="date" name="event_date" required="required" />
-            <Input type="text" name="enq" required="required" placeholder="Questions or Enquiries. Type NONE if none" />
-            <Input type="text" name="exp" placeholder="Please take a moment to leave a comment on your experience so far." />
-            <button className="submit p-1" type="submit">Submit Form</button>
+            <Input
+              type="text"
+              name="enq"
+              required="required"
+              placeholder="Questions or Enquiries. Type NONE if none"
+            />
+            <Input
+              type="text"
+              name="exp"
+              placeholder="Please take a moment to leave a comment on your experience so far."
+            />
+            <button className="submit p-1" type="submit">
+              Submit Form
+            </button>
           </form>
         )}
 
         <div className="consultation__container-btns">
-          <button disabled={active === 1} onClick={handlePrev}>Prev</button>
-          <button disabled={active === 5} id="next" onClick={handleNext}>Next</button>
+          <button disabled={active === 1} onClick={handlePrev}>
+            Prev
+          </button>
+          <button disabled={active === 5} id="next" onClick={handleNext}>
+            Next
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default Home;  
+export default Home;
